@@ -15,6 +15,8 @@ return require('packer').startup(function(use)
 	  end
   })
 
+use 'windwp/nvim-autopairs'
+use 'sbdchd/neoformat'
 
   -- LSP support
   use 'neovim/nvim-lspconfig' -- LSP configurations

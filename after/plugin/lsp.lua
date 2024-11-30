@@ -32,3 +32,8 @@ lspconfig.rust_analyzer.setup({ capabilities = capabilities }) -- Rust
 lspconfig.gopls.setup({ capabilities = capabilities }) -- Go
 lspconfig.clangd.setup({ capabilities = capabilities }) -- C++
 
+
+vim.api.nvim_set_keymap('i', 'j', 'pumvisible() ? "<C-n>" : "j"', { expr = true, noremap = true })
+vim.api.nvim_set_keymap('i', 'k', 'pumvisible() ? "<C-p>" : "k"', { expr = true, noremap = true })
+
+
