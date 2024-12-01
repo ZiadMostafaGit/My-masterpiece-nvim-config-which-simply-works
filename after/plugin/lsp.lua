@@ -32,8 +32,26 @@ lspconfig.rust_analyzer.setup({ capabilities = capabilities }) -- Rust
 lspconfig.gopls.setup({ capabilities = capabilities }) -- Go
 lspconfig.clangd.setup({ capabilities = capabilities }) -- C++
 
+-- Java LSP configuration with jdtls (OpenJDK 21)
+lspconfig.jdtls.setup({
+  capabilities = capabilities,
+  cmd = { 'jdtls' }, -- Ensure the `jdtls` executable is in your PATH
+  root_dir = lspconfig.util.root_pattern('.git', 'pom.xml', 'build.gradle', '.project'),
+  settings = {
+    java = {
+      configuration = {
+        runtimes = {
+          {
+            name = "JavaSE-21",
+            path = "/usr/lib/jvm/java-21-openjdk", -- Replace with your actual path
+          },
+        },
+      },
+    },
+  },
+})
 
+-- Keymap adjustments for nvim-cmp
 vim.api.nvim_set_keymap('i', 'j', 'pumvisible() ? "<C-n>" : "j"', { expr = true, noremap = true })
 vim.api.nvim_set_keymap('i', 'k', 'pumvisible() ? "<C-p>" : "k"', { expr = true, noremap = true })
-
 
