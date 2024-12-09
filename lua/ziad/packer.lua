@@ -41,4 +41,24 @@ use 'sbdchd/neoformat'
 	  -- or                            , branch = '0.1.x',
 	  requires = { {'nvim-lua/plenary.nvim'} }
   }
+
+
+use {
+  'akinsho/toggleterm.nvim',
+  config = function()
+    require("toggleterm").setup {
+      open_mapping = [[<C-/>]],
+      direction = "horizontal", -- Can be "vertical", "float", or "tab"
+      size = 15
+    }
+  end
+}
+
+
+
+
+
+
+
+
 end)
