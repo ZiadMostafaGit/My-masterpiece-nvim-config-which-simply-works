@@ -27,7 +27,19 @@ cmp.setup({
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 -- LSP servers configuration
-lspconfig.pyright.setup({ capabilities = capabilities }) -- Python
+-- lspconfig.pyright.setup({ capabilities = capabilities }) -- Python
+-- this change make me able to use diff interpreter so i can use pip to install packages
+lspconfig.pyright.setup({
+  capabilities = capabilities,
+  settings = {
+    python = {
+      pythonPath = "/home/ziad/WebPython/bin/python3"  -- Path to your virtualenv's Python interpreter
+    }
+  }
+}) -- Python
+
+
+
 lspconfig.rust_analyzer.setup({ capabilities = capabilities }) -- Rust
 lspconfig.gopls.setup({ capabilities = capabilities }) -- Go
 lspconfig.clangd.setup({ capabilities = capabilities }) -- C++
