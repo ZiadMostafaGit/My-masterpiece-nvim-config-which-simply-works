@@ -27,8 +27,6 @@ cmp.setup({
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 -- LSP servers configuration
--- lspconfig.pyright.setup({ capabilities = capabilities }) -- Python
--- this change make me able to use diff interpreter so i can use pip to install packages
 lspconfig.pyright.setup({
   capabilities = capabilities,
   settings = {
@@ -38,13 +36,11 @@ lspconfig.pyright.setup({
   }
 }) -- Python
 
-
-
 lspconfig.rust_analyzer.setup({ capabilities = capabilities }) -- Rust
 lspconfig.gopls.setup({ capabilities = capabilities }) -- Go
 lspconfig.clangd.setup({ capabilities = capabilities }) -- C++
 
--- Java LSP configuration with jdtls (OpenJDK 21)
+-- Java LSP configuration with jdtls (OpenJDK 23.0.1)
 lspconfig.jdtls.setup({
   capabilities = capabilities,
   cmd = { 'jdtls' }, -- Ensure the `jdtls` executable is in your PATH
@@ -54,13 +50,21 @@ lspconfig.jdtls.setup({
       configuration = {
         runtimes = {
           {
-            name = "JavaSE-21",
-            path = "/usr/lib/jvm/java-21-openjdk", -- Replace with your actual path
+            name = "JavaSE-23",
+            path = "/usr/lib/jvm/java-23-openjdk", -- Updated path for OpenJDK 23
           },
         },
       },
     },
   },
+})
+
+-- TypeScript/JavaScript LSP configuration using ts_ls
+lspconfig.ts_ls.setup({
+  capabilities = capabilities,
+  on_attach = function(client, bufnr)
+    -- Additional settings or key mappings if needed
+  end,
 })
 
 -- Keymap adjustments for nvim-cmp
