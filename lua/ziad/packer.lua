@@ -17,6 +17,9 @@ return require('packer').startup(function(use)
       vim.cmd[[colorscheme tokyonight]]
     end
   }
+
+
+
   --
   -- -- Other themes (Rose Pine)
   -- use({
@@ -27,7 +30,52 @@ return require('packer').startup(function(use)
   --   end
   -- })
 -- Add this to your plugins.lua or init.lua
+
+
+
+
+-- use {
+--   "zbirenbaum/copilot.lua",
+--   event = "VimEnter",
+--   config = function()  -- Wrap the setup in a function
+--     require("copilot").setup({
+--       suggestion = {
+--         enabled = true,
+--         auto_trigger = true,  -- Show suggestions as you type
+--         keymap = {
+--           accept = "<M-CR>",  -- Map Alt+Enter to accept suggestion
+--           next = "<M-]>",     -- Map Alt+] to next suggestion
+--           prev = "<M-[>",     -- Map Alt+[ to previous suggestion
+--           dismiss = "<C-]>",  -- Map Ctrl+] to dismiss suggestion
+--         },
+--       },
+--       panel = {
+--         enabled = false,  -- Disable the Copilot panel (optional)
+--       },
+--     })
+--   end,  -- End of the config function
+-- }
+--
+--
+--
+--
+-- use {
+--   "zbirenbaum/copilot-cmp",
+--   after = { "copilot.lua" },
+--   config = function ()
+--     require("copilot_cmp").setup()
+--   end
+-- }
+--
+--
+--
+--
 use {
+
+
+
+
+
   'numToStr/Comment.nvim',
   config = function()
     require('Comment').setup()
