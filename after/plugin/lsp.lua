@@ -67,7 +67,14 @@ lspconfig.ts_ls.setup({
   end,
 })
 
+-- Zig LSP configuration using zls
+lspconfig.zls.setup({
+  capabilities = capabilities,
+  on_attach = function(client, bufnr)
+    -- Additional settings or key mappings if needed
+  end,
+})
+
 -- Keymap adjustments for nvim-cmp
 vim.api.nvim_set_keymap('i', 'j', 'pumvisible() ? "<C-n>" : "j"', { expr = true, noremap = true })
 vim.api.nvim_set_keymap('i', 'k', 'pumvisible() ? "<C-p>" : "k"', { expr = true, noremap = true })
-

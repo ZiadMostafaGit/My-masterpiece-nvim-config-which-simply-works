@@ -26,7 +26,13 @@ return require('packer').startup(function(use)
   --     vim.cmd('colorscheme rose-pine')
   --   end
   -- })
-
+-- Add this to your plugins.lua or init.lua
+use {
+  'numToStr/Comment.nvim',
+  config = function()
+    require('Comment').setup()
+  end
+}
   -- Autopairs and other tools
   use 'windwp/nvim-autopairs'
   use 'sbdchd/neoformat'
