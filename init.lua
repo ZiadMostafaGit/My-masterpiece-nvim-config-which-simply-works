@@ -268,28 +268,32 @@ require("lazy").setup({
   "nvim-treesitter/playground",
 
   -- Telescope
-  {
-    "nvim-telescope/telescope.nvim",
-    tag = "0.1.8",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    config = function()
-      local builtin = require("telescope.builtin")
+ {
+  "nvim-telescope/telescope.nvim",
+  tag = "0.1.8",
+  dependencies = { "nvim-lua/plenary.nvim" },
+  config = function()
+    local builtin = require("telescope.builtin")
 
-      -- Search files in the current directory
-      vim.keymap.set('n', '<leader>pf', function()
-          builtin.find_files({ cwd = vim.fn.getcwd() })
-      end, {})
+    -- Search files in the current directory
+    vim.keymap.set('n', '<leader>pf', function()
+        builtin.find_files({ cwd = vim.fn.getcwd() })
+    end, {})
 
-      -- Search files in Git directories
-      vim.keymap.set('n', '<C-p>', builtin.git_files, {})
+    -- Search files in Git directories
+    vim.keymap.set('n', '<C-p>', builtin.git_files, {})
 
-      -- Search files from the root directory (~), including hidden files
-      vim.keymap.set('n', '<leader>ps', function()
-          builtin.find_files({ cwd = "~", hidden = true })
-      end, {})
-    end,
-  },
+    -- Search files from the root directory (~), including hidden files
+    vim.keymap.set('n', '<leader>ps', function()
+        builtin.find_files({ cwd = "~", hidden = true })
+    end, {})
 
+    -- Search for a specific word in files (live grep)
+    vim.keymap.set('n', '<leader>pg', function()
+        builtin.live_grep({ cwd = vim.fn.getcwd() })
+    end, {})
+  end,
+},
   -- Toggleterm
   {
     "akinsho/toggleterm.nvim",
