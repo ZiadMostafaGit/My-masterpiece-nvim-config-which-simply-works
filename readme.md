@@ -1,4 +1,4 @@
-# My Masterpiece NVim Config
+# My masterpiece NVim Config
 
 **Description:** My first config, minimal, fast, and working, which I am so proud of.
 
