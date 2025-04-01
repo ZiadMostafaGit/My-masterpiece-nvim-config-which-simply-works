@@ -35,14 +35,52 @@ vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 -- Plugin setup using lazy.nvim
 require("lazy").setup({
   -- TokyoNight theme
-  {
-    "folke/tokyonight.nvim",
+  -- {
+  --   "folke/tokyonight.nvim",
+  --   config = function()
+  --     vim.g.tokyonight_style = "night"
+  --     vim.g.tokyonight_transparent = true
+  --     vim.cmd("colorscheme tokyonight")
+  --   end,
+  -- },
+
+ {
+    "catppuccin/nvim",
+    name = "catppuccin",
     config = function()
-      vim.g.tokyonight_style = "night"
-      vim.g.tokyonight_transparent = true
-      vim.cmd("colorscheme tokyonight")
+      require("catppuccin").setup({
+        flavour = "mocha", -- Options: latte, frappe, macchiato, mocha
+        transparent_background = true,
+        integrations = {
+          treesitter = true,
+          lsp_trouble = true,
+          telescope = true,
+          cmp = true,
+          gitsigns = true,
+          nvimtree = true,
+          indent_blankline = {
+            enabled = true,
+            scope_color = "lavender",
+          },
+        },
+      })
+      vim.cmd("colorscheme catppuccin-mocha")
     end,
   },
+  {
+    "nvim-lualine/lualine.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      require("lualine").setup({
+        options = {
+          theme = "catppuccin",
+        },
+      })
+    end,
+  },
+
+
+
 
   -- Comment.nvim
   {
