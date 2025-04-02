@@ -34,17 +34,7 @@ vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
 -- Plugin setup using lazy.nvim
 require("lazy").setup({
-  -- TokyoNight theme
-  -- {
-  --   "folke/tokyonight.nvim",
-  --   config = function()
-  --     vim.g.tokyonight_style = "night"
-  --     vim.g.tokyonight_transparent = true
-  --     vim.cmd("colorscheme tokyonight")
-  --   end,
-  -- },
-
- {
+  {
     "catppuccin/nvim",
     name = "catppuccin",
     config = function()
@@ -73,159 +63,7 @@ require("lazy").setup({
     config = function()
       require("lualine").setup({
         options = {
-          theme = "catppuccin",
-        },
-      })
-    end,
-  },
-
-
-
-
-  -- Comment.nvim
-  {
-    "numToStr/Comment.nvim",
-    config = function()
-      require("Comment").setup()
-    end,
-  },
-
-  -- Autopairs
-  {
-    "windwp/nvim-autopairs",
-    config = function()
-      require("nvim-autopairs").setup({
-        disable_filetype = { "TelescopePrompt", "vim" },
-        enable_check_bracket_line = false,
-      })
-    end,
-  },
-
-  -- Neoformat
-  {
-    "sbdchd/neoformat",
-    config = function()
-      vim.cmd('autocmd BufWritePre * Neoformat')
-    end,
-  },
-
-  -- LSP support
-  {
-    "neovim/nvim-lspconfig",
-    config = function()
-      local lspconfig = require('lspconfig')
-      local cmp = require('cmp')
-      local luasnip = require('luasnip')
-
-      -- Autocompletion setup
-      cmp.setup({
-        snippet = {
-          expand = function(args)
-            luasnip.lsp_expand(args.body) -- For luasnip users.
-          end,
-        },
-        mapping = cmp.mapping.preset.insert({
-          ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-          ['<C-f>'] = cmp.mapping.scroll_docs(4),
-          ['<C-Space>'] = cmp.mapping.complete(),
-          ['<CR>'] = cmp.mapping.confirm({ select = true }),
-        }),
-        sources = cmp.config.sources({
-          { name = 'nvim_lsp' },
-          { name = 'buffer' },
-          { name = 'path' },
-        }),
-      })
-
-      -- Add LSP capabilities to nvim-cmp
-      local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
-      -- LSP servers configuration
-      lspconfig.pyright.setup({
-        capabilities = capabilities,
-        settings = {
-          python = {
-            pythonPath = "/home/ziad/WebPython/bin/python3"  -- Path to your virtualenv's Python interpreter
-          }
-        }
-      }) -- Python
-
-      lspconfig.rust_analyzer.setup({ capabilities = capabilities }) -- Rust
-      lspconfig.gopls.setup({ capabilities = capabilities }) -- Go
-      lspconfig.clangd.setup({ capabilities = capabilities }) -- C++
-
-      -- Java LSP configuration with jdtls (OpenJDK 23.0.1)
-      lspconfig.jdtls.setup({
-        capabilities = capabilities,
-        cmd = { 'jdtls' }, -- Ensure the jdtls executable is in your PATH
-        root_dir = lspconfig.util.root_pattern('.git', 'pom.xml', 'build.gradle', '.project'),
-        settings = {
-          java = {
-            configuration = {
-              runtimes = {
-                {
-                  name = "JavaSE-23",
-                  path = "/usr/lib/jvm/java-23-openjdk", -- Updated path for OpenJDK 23
-                },
-              },
-            },
-          },
-        },
-      })
-
-      -- TypeScript/JavaScript LSP configuration using ts_ls
-      lspconfig.ts_ls.setup({
-        capabilities = capabilities,
-        on_attach = function(client, bufnr)
-          -- Additional settings or key mappings if needed
-        end,
-      })
-
-      -- Zig LSP configuration using zls
-      lspconfig.zls.setup({
-        capabilities = capabilities,
-        on_attach = function(client, bufnr)
-          -- Additional settings or key mappings if needed
-        end,
-      })
-
-      -- Keymap adjustments for nvim-cmp
-      vim.api.nvim_set_keymap('i', 'j', 'pumvisible() ? "<C-n>" : "j"', { expr = true, noremap = true })
-      vim.api.nvim_set_keymap('i', 'k', 'pumvisible() ? "<C-p>" : "k"', { expr = true, noremap = true })
-    end,
-  },
-  "hrsh7th/nvim-cmp", -- Autocompletion plugin
-  "hrsh7th/cmp-nvim-lsp", -- LSP source for nvim-cmp
-  "hrsh7th/cmp-buffer", -- Buffer completions
-  "hrsh7th/cmp-path", -- Path completions
-  {
-    "L3MON4D3/LuaSnip", -- Snippet engine
-    config = function()
-      require("luasnip").setup({})
-    end,
-  },
-  "saadparwaiz1/cmp_luasnip", -- Snippets source for nvim-cmp
-
-  -- Rust tools
-  "simrat39/rust-tools.nvim",
-
-  -- Undotree
-  {
-    "mbbill/undotree",
-    config = function()
-      vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
-    end,
-  },
-
-
- -- Lualine (statusline)
-  {
-    "nvim-lualine/lualine.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    config = function()
-      require("lualine").setup({
-        options = {
-          theme = "tokyonight",
+          theme = "catppuccin", -- You can also use "catppuccin-mocha" if preferred
           icons_enabled = true,
           component_separators = { left = "", right = "" },
           section_separators = { left = "", right = "" },
@@ -241,32 +79,129 @@ require("lazy").setup({
       })
     end,
   },
+  {
+    "numToStr/Comment.nvim",
+    config = function()
+      require("Comment").setup()
+    end,
+  },
+  {
+    "windwp/nvim-autopairs",
+    config = function()
+      require("nvim-autopairs").setup({
+        disable_filetype = { "TelescopePrompt", "vim" },
+        enable_check_bracket_line = false,
+      })
+    end,
+  },
+  {
+    "sbdchd/neoformat",
+    config = function()
+      vim.cmd('autocmd BufWritePre * Neoformat')
+    end,
+  },
+  {
+    "neovim/nvim-lspconfig",
+    config = function()
+      local lspconfig = require('lspconfig')
+      local cmp = require('cmp')
+      local luasnip = require('luasnip')
 
+      cmp.setup({
+        snippet = {
+          expand = function(args)
+            luasnip.lsp_expand(args.body)
+          end,
+        },
+        mapping = cmp.mapping.preset.insert({
+          ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+          ['<C-f>'] = cmp.mapping.scroll_docs(4),
+          ['<C-Space>'] = cmp.mapping.complete(),
+          ['<CR>'] = cmp.mapping.confirm({ select = true }),
+        }),
+        sources = cmp.config.sources({
+          { name = 'nvim_lsp' },
+          { name = 'buffer' },
+          { name = 'path' },
+        }),
+      })
 
+      local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
+      lspconfig.pyright.setup({
+        capabilities = capabilities,
+        settings = {
+          python = {
+            pythonPath = "/home/ziad/WebPython/bin/python3"
+          }
+        }
+      })
+      lspconfig.rust_analyzer.setup({ capabilities = capabilities })
+      lspconfig.gopls.setup({ capabilities = capabilities })
+      lspconfig.clangd.setup({ capabilities = capabilities })
+      lspconfig.jdtls.setup({
+        capabilities = capabilities,
+        cmd = { 'jdtls' },
+        root_dir = lspconfig.util.root_pattern('.git', 'pom.xml', 'build.gradle', '.project'),
+        settings = {
+          java = {
+            configuration = {
+              runtimes = {
+                {
+                  name = "JavaSE-23",
+                  path = "/usr/lib/jvm/java-23-openjdk",
+                },
+              },
+            },
+          },
+        },
+      })
+      lspconfig.ts_ls.setup({
+        capabilities = capabilities,
+        on_attach = function(client, bufnr)
+        end,
+      })
+      lspconfig.zls.setup({
+        capabilities = capabilities,
+        on_attach = function(client, bufnr)
+        end,
+      })
 
-
-
-
-
-  -- Harpoon
+      vim.api.nvim_set_keymap('i', 'j', 'pumvisible() ? "<C-n>" : "j"', { expr = true, noremap = true })
+      vim.api.nvim_set_keymap('i', 'k', 'pumvisible() ? "<C-p>" : "k"', { expr = true, noremap = true })
+    end,
+  },
+  "hrsh7th/nvim-cmp",
+  "hrsh7th/cmp-nvim-lsp",
+  "hrsh7th/cmp-buffer",
+  "hrsh7th/cmp-path",
+  {
+    "L3MON4D3/LuaSnip",
+    config = function()
+      require("luasnip").setup({})
+    end,
+  },
+  "saadparwaiz1/cmp_luasnip",
+  "simrat39/rust-tools.nvim",
+  {
+    "mbbill/undotree",
+    config = function()
+      vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
+    end,
+  },
   {
     "ThePrimeagen/harpoon",
     config = function()
       local mark = require("harpoon.mark")
       local ui = require("harpoon.ui")
-
       vim.keymap.set("n", "<leader>a", mark.add_file)
       vim.keymap.set("n", "<C-e>", ui.toggle_quick_menu)
-
       vim.keymap.set("n", "<C-h>", function() ui.nav_file(1) end)
       vim.keymap.set("n", "<C-j>", function() ui.nav_file(2) end)
       vim.keymap.set("n", "<C-k>", function() ui.nav_file(3) end)
       vim.keymap.set("n", "<C-l>", function() ui.nav_file(4) end)
     end,
   },
-
-  -- Treesitter
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
@@ -304,35 +239,24 @@ require("lazy").setup({
     end,
   },
   "nvim-treesitter/playground",
-
-  -- Telescope
- {
-  "nvim-telescope/telescope.nvim",
-  tag = "0.1.8",
-  dependencies = { "nvim-lua/plenary.nvim" },
-  config = function()
-    local builtin = require("telescope.builtin")
-
-    -- Search files in the current directory
-    vim.keymap.set('n', '<leader>pf', function()
+  {
+    "nvim-telescope/telescope.nvim",
+    tag = "0.1.8",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      local builtin = require("telescope.builtin")
+      vim.keymap.set('n', '<leader>pf', function()
         builtin.find_files({ cwd = vim.fn.getcwd() })
-    end, {})
-
-    -- Search files in Git directories
-    vim.keymap.set('n', '<C-p>', builtin.git_files, {})
-
-    -- Search files from the root directory (~), including hidden files
-    vim.keymap.set('n', '<leader>ps', function()
+      end, {})
+      vim.keymap.set('n', '<C-p>', builtin.git_files, {})
+      vim.keymap.set('n', '<leader>ps', function()
         builtin.find_files({ cwd = "~", hidden = true })
-    end, {})
-
-    -- Search for a specific word in files (live grep)
-    vim.keymap.set('n', '<leader>pg', function()
+      end, {})
+      vim.keymap.set('n', '<leader>pg', function()
         builtin.live_grep({ cwd = vim.fn.getcwd() })
-    end, {})
-  end,
-},
-  -- Toggleterm
+      end, {})
+    end,
+  },
   {
     "akinsho/toggleterm.nvim",
     config = function()
@@ -343,8 +267,6 @@ require("lazy").setup({
       })
     end,
   },
-
-  -- GitHub Copilot
   {
     "zbirenbaum/copilot.lua",
     event = "VimEnter",
@@ -374,3 +296,4 @@ require("lazy").setup({
     end,
   },
 })
+
