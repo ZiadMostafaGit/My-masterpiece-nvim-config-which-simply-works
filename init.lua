@@ -57,6 +57,35 @@ require("lazy").setup({
       vim.cmd("colorscheme catppuccin-mocha")
     end,
   },
+
+{
+  "nvim-tree/nvim-tree.lua",
+  dependencies = { "nvim-tree/nvim-web-devicons" },
+  config = function()
+    require("nvim-tree").setup({
+      hijack_cursor = true,
+      view = { width = 35, side = "left" },
+      update_cwd = true,
+      sync_root_with_cwd = true,
+    })
+
+    -- Toggle NvimTree (normal, current dir)
+    vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { noremap = true, silent = true })
+
+    -- Toggle NvimTree but cd to ~ first
+    vim.keymap.set("n", "<leader>E", function()
+      vim.cmd("cd ~")        -- change cwd to home
+      vim.cmd("NvimTreeToggle") -- open NvimTree
+    end, { noremap = true, silent = true })
+  end,
+},
+
+
+
+
+
+
+
   {
     "nvim-lualine/lualine.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
