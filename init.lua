@@ -130,76 +130,96 @@ require("lazy").setup({
     end,
   },
   {
-    "neovim/nvim-lspconfig",
-    config = function()
-      local lspconfig = require('lspconfig')
-      local cmp = require('cmp')
-      local luasnip = require('luasnip')
+  "neovim/nvim-lspconfig",
+  config = function()
+    local lspconfig = require('lspconfig')
+    local cmp = require('cmp')
+    local luasnip = require('luasnip')
 
-      cmp.setup({
-        snippet = {
-          expand = function(args)
-            luasnip.lsp_expand(args.body)
-          end,
-        },
-        mapping = cmp.mapping.preset.insert({
-          ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-          ['<C-f>'] = cmp.mapping.scroll_docs(4),
-          ['<C-Space>'] = cmp.mapping.complete(),
-          ['<CR>'] = cmp.mapping.confirm({ select = true }),
-        }),
-        sources = cmp.config.sources({
-          { name = 'nvim_lsp' },
-          { name = 'buffer' },
-          { name = 'path' },
-        }),
-      })
+    cmp.setup({
+      snippet = {
+        expand = function(args)
+          luasnip.lsp_expand(args.body)
+        end,
+      },
+      mapping = cmp.mapping.preset.insert({
+        ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-f>'] = cmp.mapping.scroll_docs(4),
+        ['<C-Space>'] = cmp.mapping.complete(),
+        ['<CR>'] = cmp.mapping.confirm({ select = true }),
+      }),
+      sources = cmp.config.sources({
+        { name = 'nvim_lsp' },
+        { name = 'buffer' },
+        { name = 'path' },
+      }),
+    })
 
-      local capabilities = require('cmp_nvim_lsp').default_capabilities()
+    local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-      lspconfig.pyright.setup({
-        capabilities = capabilities,
-        settings = {
-          python = {
-            pythonPath = "/home/ziad/WebPython/bin/python3"
-          }
+    -- Python
+    lspconfig.pyright.setup({
+      capabilities = capabilities,
+      settings = {
+        python = {
+          pythonPath = "/home/ziad/WebPython/bin/python3"
         }
-      })
-      lspconfig.rust_analyzer.setup({ capabilities = capabilities })
-      lspconfig.gopls.setup({ capabilities = capabilities })
-      lspconfig.clangd.setup({ capabilities = capabilities })
-      lspconfig.jdtls.setup({
-        capabilities = capabilities,
-        cmd = { 'jdtls' },
-        root_dir = lspconfig.util.root_pattern('.git', 'pom.xml', 'build.gradle', '.project'),
-        settings = {
-          java = {
-            configuration = {
-              runtimes = {
-                {
-                  name = "JavaSE-23",
-                  path = "/usr/lib/jvm/java-23-openjdk",
-                },
+      }
+    })
+
+    -- Rust
+    lspconfig.rust_analyzer.setup({ capabilities = capabilities })
+
+    -- Go
+    lspconfig.gopls.setup({ capabilities = capabilities })
+
+    -- C/C++
+    lspconfig.clangd.setup({ capabilities = capabilities })
+
+    -- Java
+    lspconfig.jdtls.setup({
+      capabilities = capabilities,
+      cmd = { 'jdtls' },
+      root_dir = lspconfig.util.root_pattern('.git', 'pom.xml', 'build.gradle', '.project'),
+      settings = {
+        java = {
+          configuration = {
+            runtimes = {
+              {
+                name = "JavaSE-23",
+                path = "/usr/lib/jvm/java-23-openjdk",
               },
             },
           },
         },
-      })
-      lspconfig.ts_ls.setup({
-        capabilities = capabilities,
-        on_attach = function(client, bufnr)
-        end,
-      })
-      lspconfig.zls.setup({
-        capabilities = capabilities,
-        on_attach = function(client, bufnr)
-        end,
-      })
+      },
+    })
 
-      vim.api.nvim_set_keymap('i', 'j', 'pumvisible() ? "<C-n>" : "j"', { expr = true, noremap = true })
-      vim.api.nvim_set_keymap('i', 'k', 'pumvisible() ? "<C-p>" : "k"', { expr = true, noremap = true })
-    end,
-  },
+    -- TypeScript
+    lspconfig.ts_ls.setup({
+      capabilities = capabilities,
+      on_attach = function(client, bufnr) end,
+    })
+
+    -- Zig
+    lspconfig.zls.setup({
+      capabilities = capabilities,
+      on_attach = function(client, bufnr) end,
+    })
+
+    -- 🔹 Dockerfile
+    lspconfig.dockerls.setup({
+      capabilities = capabilities,
+      on_attach = function(client, bufnr)
+        -- optional keymaps here
+      end,
+    })
+
+    -- Completion menu navigation
+    vim.api.nvim_set_keymap('i', 'j', 'pumvisible() ? "<C-n>" : "j"', { expr = true, noremap = true })
+    vim.api.nvim_set_keymap('i', 'k', 'pumvisible() ? "<C-p>" : "k"', { expr = true, noremap = true })
+  end,
+},
   "hrsh7th/nvim-cmp",
   "hrsh7th/cmp-nvim-lsp",
   "hrsh7th/cmp-buffer",
